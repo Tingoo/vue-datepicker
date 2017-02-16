@@ -1,0 +1,181 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    text-align: center; /*居中*/
+    font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    font-size: 14px;
+}
+
+.dt-panel {
+    width: 240px;
+    margin: 0 auto;
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    border-radius: 2px;
+}
+
+.dt-nowDate span{
+    cursor: pointer;
+}
+
+.dt-panel .dt-yearPanel{
+    margin-left: 32px;
+    width: 180px;
+}
+
+.dt-panel .dt-monthPanel{
+    margin-left: 77px;
+    width: 140px;
+}
+
+.dt-panel .dt-yearPanel .clickYear{
+    cursor: pointer;
+    margin: 0 20px;
+    line-height: 30px;
+}
+
+.dt-panel .dt-yearPanel,.dt-panel .dt-monthPanel{
+    background-color: #ffffff;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
+    border-radius: 2px;
+    position: absolute;
+}
+
+.dt-panel .dt-yearPanel ul li{
+    margin: 10px 5px;
+    width: 50px;
+}
+
+.dt-panel .dt-monthPanel ul li{
+    margin: 10px 5px;
+    width: 25px;
+}
+
+.dt-panel .dt-yearPanel ul li,.dt-panel .dt-monthPanel ul li{
+    list-style-type:none;
+    /*display: inline;*/
+    float: left;
+    cursor: pointer;
+}
+ .dt-panel .dt-yearPanel ul li:hover,.dt-panel .dt-monthPanel ul li:hover{
+     background-color: #eaf8fe;
+ }
+
+.dt-input {
+    width: 238px;
+    height: 28px;
+    border-radius: 4px;
+}
+
+.dt-note {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    top: 8px;
+}
+
+.dt-head {
+    line-height: 30px;
+    background-color: #3A8AF9;
+    color: #ffffff;
+    position: relative;
+}
+ .dt-head .dt-conversion{
+     float: right;
+     right: 10px;
+     position: fixed;
+     cursor: pointer;
+     line-height: 33px;
+     position: absolute;
+     font: 12px;
+ }
+
+.dt-lastDate, .dt-nextDate {
+    display: inline-block;
+    margin: 0 8px 0 8px;
+}
+
+.dt-lastDate a, .dt-nextDate a {
+    margin: 0 6px 0 6px;
+    cursor: pointer;
+}
+
+.dt-nowDate {
+    font-weight: normal;
+}
+
+.dt-table {
+    width: 100%;
+    margin: 0 auto; /*table居中*/
+    color: #333;
+    border-collapse: collapse;
+}
+
+.dt-table span {
+    /*display: block;*/
+    /*width: 40px;*/
+    /*height: 30px;*/
+    margin: 0 auto;
+    transition: background 0.3s ease;
+    box-sizing: border-box;
+    /*border: 12px solid transparent;*/
+    border-radius: 4px;
+    cursor: pointer;
+    height: 30px;
+    padding: 3px;
+}
+
+.dt-table tbody td span:hover{
+    background: #eaf8fe;
+}
+
+.dt-table tbody .dt-today span{
+    /*border-color: #2db7f5;*/
+    font-weight: bold;
+    color: #2db7f5;
+}
+
+.dt-table  tbody .dt-select span{
+    background: #2db7f5;
+    color: #fff;
+    font-weight: normal;
+    /*border: 1px solid transparent;*/
+}
+
+.dt-table tbody .dt-select span:hover{
+    background: #2db7f5 !important;
+}
+
+.dt-table tbody tr td{
+    width: 30px;
+    height: 30px;
+}
+
+.dt-table thead{
+    line-height: 30px;
+}
+
+.dt-last {
+    color: #888;
+}
+
+.dt-footer{
+    line-height: 38px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.dt-footer .dt-bt{
+    background-color: #2db7f5;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin: 5px 10px 5px 50px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    float: right;
+    line-height: 20px;
+}
