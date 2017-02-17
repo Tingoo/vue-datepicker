@@ -162,6 +162,11 @@ body {
     color: #888;
 }
 
+.dt-table .dt-disabled{
+    color: #888888;
+    cursor: default;
+}
+
 .dt-footer{
     line-height: 38px;
     vertical-align: middle;

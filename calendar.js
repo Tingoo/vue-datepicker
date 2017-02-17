@@ -67,15 +67,28 @@
             return {}
         },
         template: '<tr><td v-for="item in items" :class="{\'dt-last\':month!=item.month,\'dt-today\':cur==item.data,\'dt-select\':sel==item.data}">' +
-            '<span @click="click(item)">{{item.day}}</span></td></tr>',
+            '<span @click="click(item)" :class="disabledDayStyle(item)">{{item.day}}</span></td></tr>',
         methods: {
             click: function (item) {
-                var disabled = this.disabledDay.some(function(el,index,array){return el == item.weekDay});
+                var disDay = this.disabledDay;
+                var disabled = disDay.some(function(el,index,array){return el == item.weekDay});
                 if (!disabled){
                     eventHub.$emit('click', item.data)
                 }
+            },
+            disabledDayStyle: function (item){
+                var disDay = this.disabledDay;
+                var disabled = disDay.some(function(el,index,array){return el == item.weekDay});
+                return {'dt-disabled':disabled};
             }
-        }
+        }/*,
+        computed: {
+            disabledDayStyle: function (){
+                var disDay = this.disabledDay;
+                var disabled = disDay.some(function(el,index,array){return el == item.weekDay});
+                return {'dt-disabled':disabled};
+            }
+        }*/
     });
     /*展示十个年份*/
     var showYear = Vue.extend({
