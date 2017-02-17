@@ -33,19 +33,25 @@
         lastFix = lastFix < 0 ? lastFix + 7 : lastFix;
         var lastMaxDate = new Date(y, m - 1, 0).getDate(),
             maxDate = new Date(y, m, 0).getDate();
-        var i, t;
+        var i, t, weekDay;
         for (i = 0; i < lastFix; i++) {
             t = lastMaxDate + i - lastFix + 1;
-            last[i] = {month: lastMonth, day: t, data: lastDate + t}
+            weekDay = (lastFix - 1 + i) % 7;
+            weekDay = weekDay == 0 ? 7 : weekDay;
+            last[i] = {month: lastMonth, day: t, weekDay:weekDay, data: lastDate + t}
         }
         for (i = 0; i < maxDate; i++) {
             t = i + 1;
-            now[i] = {month: m, day: t, data: '' + y + '-' + m + '-' + t}
+            weekDay = (lastFix + 1 + i) % 7;
+            weekDay = weekDay == 0 ? 7 : weekDay;
+            now[i] = {month: m, day: t, weekDay:weekDay, data: '' + y + '-' + m + '-' + t}
         }
         var nextFix = maxNumber - maxDate - lastFix;
         for (i = 0; i < nextFix; i++) {
             t = i + 1;
-            next[i] = {month: nextMonth, day: t, data: nextDate + t}
+            weekDay = (maxDate % 7 + lastFix + 1 + i) % 7;
+            weekDay = weekDay == 0 ? 7 : weekDay;
+            next[i] = {month: nextMonth, day: t, weekDay:weekDay, data: nextDate + t}
         }
         var result = last.concat(now, next);
         var cell = [];
@@ -56,7 +62,7 @@
     }
 
     var calendarLine = Vue.extend({
-        props: ['items', 'cur', 'sel', 'month'],
+        props: ['items', 'cur', 'sel', 'month', 'disabledDay'],
         data: function () {
             return {}
         },
@@ -64,7 +70,10 @@
             '<span @click="click(item)">{{item.day}}</span></td></tr>',
         methods: {
             click: function (item) {
-                eventHub.$emit('click', item.data)
+                var disabled = this.disabledDay.some(function(el,index,array){return el == item.weekDay});
+                if (!disabled){
+                    eventHub.$emit('click', item.data)
+                }
             }
         }
     });
@@ -237,12 +246,12 @@
                 y: y,
                 m: m,
                 data: data,
-                show: false,
-                showYear: false,
-                showMonth: false,
-                note: note,
-                lang: lang,
-                showLang: showLang
+                show: false, /*日历面板显隐*/
+                showYear: false, /*年份选择显隐*/
+                showMonth: false, /*月份选择显隐*/
+                note: note, /*输入出错提示*/
+                lang: lang, /*中英切换*/
+                showLang: showLang /*中英切换显示*/
             }
         },
         template: '<div class="dt-panel">' +
@@ -261,7 +270,7 @@
             '<div v-show = "showMonth" class="dt-monthPanel"><p is="show-month" :lang="lang"></p></div>' +
             '<table class="dt-table">' +
             '<thead><div is="day-title" :lang="lang"></div></thead>' +
-            '<tbody><tr is="calendar-line" v-for="cell in data" :items="cell" :month="m" :sel="sel" :cur="cur"></tr></tbody>' +
+            '<tbody><tr is="calendar-line" v-for="cell in data" :items="cell" :month="m" :sel="sel" :cur="cur" :disabledDay="config.disabledDay"></tr></tbody>' +
             '</table>' +
             '<div class="dt-footer"><a @click="clickNow">{{sel}}</a><span @click="show=false" class="dt-bt">确认</span></div></div></div>',
         created: function () {
