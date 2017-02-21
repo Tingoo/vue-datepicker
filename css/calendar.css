@@ -64,13 +64,19 @@ body {
      background-color: #eaf8fe;
  }
 
+.dt-panel .dt-note{
+    position: absolute;
+    top: 150px;
+    right: 260px;
+}
+
 .dt-input {
     width: 238px;
     height: 28px;
     border-radius: 4px;
 }
 
-.dt-note {
+.dt-attention {
     color: red;
     font-size: 12px;
     position: absolute;
