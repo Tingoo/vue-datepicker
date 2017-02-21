@@ -256,7 +256,8 @@
             var note = '',
                 lang = true,
                 showLang = 'EN',
-                showNote = false;
+                showNote = false,
+                noteInput = {};
             return {
                 sel: sel,
                 cur: cur,
@@ -269,7 +270,8 @@
                 note: note, /*输入出错提示*/
                 lang: lang, /*中英切换*/
                 showLang: showLang, /*中英切换显示*/
-                showNote: showNote /*note面板显隐*/
+                showNote: showNote, /*note面板显隐*/
+                noteInput: note /*note数据初始化*/
             }
         },
         template: '<div class="dt-panel">' +
@@ -292,7 +294,8 @@
             '</tbody>' +
             '</table>' +
             '<div class="dt-footer"><a @click="clickNow">{{sel}}</a><span @click="show=false" class="dt-bt">确认</span></div></div>' +
-            '<div class = "dt-note" v-show = "showNote"><input id = "dt-noteInput"  type="text">{{sel}}</div>' +
+            '<div class = "dt-note" v-show = "showNote"><input id = "dt-noteInput"  type="text">{{sel}}' +
+            '<button @click="clickNoteConsole">取消</button><button @click="clickNoteSave">保存</button></div>' +
             '</div>',
         created: function () {
             eventHub.$on('click', this.click);
@@ -354,14 +357,24 @@
                 //     this.date = new Date(this.y,(this.m-1),arr[2]).getTime();
                 this.data = getCalendar(this.y, this.m);
                 /*点击当天日期控制note面板显隐*/
-                this.showNote = !this.showNote;
-                if(item.note){
-                    document.getElementById("dt-noteInput").value = item.note;
+                this.showNote = true;
+                var index = this.sel;
+                var el = document.getElementById("dt-noteInput");
+                if(this.noteInput[index]){
+                    el.value = this.noteInput[index];
                 } else {
-                    if(document.getElementById("dt-noteInput").value){
-                        item.note = document.getElementById("dt-noteInput").value;
-                    }
+                        el.value = ''
                 }
+                /*var el = document.getElementById("dt-noteInput");
+                if(item.note){
+                    el.value = item.note;
+                } else {
+                    if(el.value){
+                        item = Object.assign({},item,{'note':el.value});
+                       *//* item.note = el.value;*//*
+                        el.value = ''
+                    }
+                }*/
             },
             /*日期输入提示*/
             getNote: function (sel) {
@@ -443,6 +456,26 @@
                 } else {
                     this.showLang = 'CN'
                 }
+            },
+            /*note数据保存*/
+            clickNoteSave: function () {
+                var index = this.sel;
+                var el = document.getElementById("dt-noteInput");
+                this.showNote = false;
+                 if(this.noteInput[index]){
+                     el.value = this.noteInput[index];
+                 } else {
+                     if(el.value){
+                         this.noteInput = Object.assign({},this.noteInput,{index:el.value});
+                         this.noteInput[index] = el.value;
+                         el.value = ''
+                     }
+                 }
+            },
+            /*note数据取消*/
+            clickNoteConsole: function () {
+                var el = document.getElementById("dt-noteInput");
+                el.value = ''
             }
         },
         components: {
