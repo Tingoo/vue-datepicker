@@ -35,8 +35,10 @@
             maxDate = new Date(y, m, 0).getDate();
         var i, t, weekDay;
         for (i = 0; i < lastFix; i++) {
+            /*从星期一到昨天*/
             t = lastMaxDate + i - lastFix + 1;
-            weekDay = (lastFix - 1 + i) % 7;
+            /*weekDay = (lastFix - 1 + i) % 7;*/
+            weekDay = (1 + i) % 7;
             weekDay = weekDay == 0 ? 7 : weekDay;
             last[i] = {month: lastMonth, day: t, weekDay:weekDay, data: lastDate + t}
         }
@@ -62,9 +64,12 @@
     }
 
     var calendarLine = Vue.extend({
-        props: ['items', 'cur', 'sel', 'month', 'disabledDay'],
+        props: ['items', 'cur', 'sel', 'month', 'disabledDay','showNote'],
         data: function () {
-            return {}
+            var showNoteSet = this.showNote;
+            return {
+                showNoteSet: showNoteSet
+            }
         },
         template: '<tr><td v-for="item in items" :class="{\'dt-last\':month!=item.month,\'dt-today\':cur==item.data,\'dt-select\':sel==item.data}">' +
             '<span @click="click(item)" :class="disabledDayStyle(item)">{{item.day}}</span></td></tr>',
@@ -75,6 +80,8 @@
                 if (!disabled){
                     eventHub.$emit('click', item.data)
                 }
+                /*点击当天日期控制note面板显隐*/
+                this.showNoteSet = !this.showNoteSet
             },
             disabledDayStyle: function (item){
                 var disDay = this.disabledDay;
@@ -252,7 +259,8 @@
             var data = getCalendar(y, m);
             var note = '',
                 lang = true,
-                showLang = 'EN';
+                showLang = 'EN',
+                showNote = false;
             return {
                 sel: sel,
                 cur: cur,
@@ -264,7 +272,8 @@
                 showMonth: false, /*月份选择显隐*/
                 note: note, /*输入出错提示*/
                 lang: lang, /*中英切换*/
-                showLang: showLang /*中英切换显示*/
+                showLang: showLang, /*中英切换显示*/
+                showNote: showNote /*note面板显隐*/
             }
         },
         template: '<div class="dt-panel">' +
@@ -285,7 +294,8 @@
             '<thead><div is="day-title" :lang="lang"></div></thead>' +
             '<tbody><tr is="calendar-line" v-for="cell in data" :items="cell" :month="m" :sel="sel" :cur="cur" :disabledDay="config.disabledDay"></tr></tbody>' +
             '</table>' +
-            '<div class="dt-footer"><a @click="clickNow">{{sel}}</a><span @click="show=false" class="dt-bt">确认</span></div></div></div>',
+            '<div class="dt-footer"><a @click="clickNow">{{sel}}</a><span @click="show=false" class="dt-bt">确认</span></div></div></div>' +
+            '<div id = "dt-note" v-show = ""><input type="text"></div>',
         created: function () {
             eventHub.$on('click', this.click);
             eventHub.$on('clickYear', this.clickYear);

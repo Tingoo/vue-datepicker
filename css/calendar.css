@@ -159,11 +159,11 @@ body {
 }
 
 .dt-last {
-    color: #888;
+    color: #666;
 }
 
 .dt-table .dt-disabled{
-    color: #888888;
+    color: #aaa;
     cursor: default;
 }
 
