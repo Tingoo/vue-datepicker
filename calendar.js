@@ -354,10 +354,15 @@
                 this.showNote = true;
                 var index = this.sel;
                 var el = document.getElementById("dt-noteInput");
+                var localNote = this.getFromLocalStorage(index);
+                if(localNote){
+                }
                 if(this.noteInput[index]){
                     el.value = this.noteInput[index];
+                } else if(localNote) {
+                    el.value = localNote;
                 } else {
-                        el.value = ''
+                    el.value = ''
                 }
             },
             /*日期输入提示*/
@@ -450,6 +455,7 @@
                      /*为什么用Object.assign*/
                      this.noteInput = Object.assign({},this.noteInput,{index:el.value});
                      this.noteInput[index] = el.value;
+                     this.setToLocalStorage(index,el.value);
                  }
             },
             /*note数据取消*/
@@ -457,6 +463,14 @@
                 this.showNote = false;
                 var el = document.getElementById("dt-noteInput");
                 el.value = ''
+            },
+            /*note存在localstorage*/
+            setToLocalStorage: function(id,value){
+                localStorage.setItem(id,value);
+            },
+            /*从localstorage获取note*/
+            getFromLocalStorage: function(id){
+                return localStorage.getItem(id);
             }
         },
         components: {

@@ -9,3 +9,4 @@ A datepicker demo  with Vue2.x
     3. 添加日记功能初步完成
 + 2017-02-27
     1. 修改note存储不刷新bug
+    2. 添加浏览器缓存
