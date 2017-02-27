@@ -144,7 +144,7 @@ body {
     width: 100%;
     margin: 0 auto; /*table居中*/
     color: #333;
-    border-collapse: collapse;
+    /*border-collapse: collapse;*/
 }
 
 .dt-table span {
@@ -158,7 +158,7 @@ body {
     border-radius: 4px;
     cursor: pointer;
     height: 30px;
-    padding: 3px;
+    padding: 5px;
 }
 
 .dt-table tbody td span:hover{
@@ -180,6 +180,17 @@ body {
 
 .dt-table tbody .dt-select span:hover{
     background: #2db7f5 !important;
+}
+
+.dt-table tbody .dt-circle{
+    padding: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 2px;
+    background-color: #2db7f5;
+    position: absolute;
+    margin: 17px 0 0 14px;
+    display: block;
 }
 
 .dt-table tbody tr td{

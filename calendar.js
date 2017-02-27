@@ -70,7 +70,7 @@
             }
         },
         template: '<tr><td v-for="item in items" :class="{\'dt-last\':month!=item.month,\'dt-today\':cur==item.data,\'dt-select\':sel==item.data}">' +
-            '<span @click="click(item)" :class="disabledDayStyle(item)">{{item.day}}</span></td></tr>',
+            '<span v-show="showCircle(item.data)" class="dt-circle"></span><span @click="click(item)" :class="disabledDayStyle(item)">{{item.day}}</span></td></tr>',
         methods: {
             click: function (item) {
                 var disDay = this.disabledDay;
@@ -84,6 +84,10 @@
                 var disDay = this.disabledDay;
                 var disabled = disDay.some(function(el,index,array){return el == item.weekDay});
                 return {'dt-disabled':disabled};
+            },
+            /*添加事件标识，v-show可接收函数*/
+            showCircle: function (id){
+                return localStorage.getItem(id);
             }
         }
     });
