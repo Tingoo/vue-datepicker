@@ -15,6 +15,7 @@ body {
     background-color: #ffffff;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, .14), 0 3px 1px -2px rgba(0, 0, 0, .2), 0 1px 5px 0 rgba(0, 0, 0, .12);
     border-radius: 2px;
+    position: relative;
 }
 
 .dt-nowDate span{
@@ -67,7 +68,33 @@ body {
 .dt-panel .dt-note{
     position: absolute;
     top: 150px;
-    right: 260px;
+    margin-left: 260px;
+    text-align: left;
+}
+
+.dt-panel .dt-note textarea{
+    width: 200px;
+    height: 50px;
+}
+
+.dt-panel .dt-note .btn-note{
+    display: block;
+    text-align: center;
+}
+
+.dt-bt{
+    background-color: #2db7f5;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    line-height: 20px;
+    margin: 0 10px;
+}
+
+.dt-bt:hover{
+    background-color: #0C90B1;
 }
 
 .dt-input {
@@ -180,13 +207,6 @@ body {
 }
 
 .dt-footer .dt-bt{
-    background-color: #2db7f5;
-    color: #ffffff;
-    padding: 2px 8px;
-    border-radius: 4px;
     margin: 5px 10px 5px 50px;
-    cursor: pointer;
-    border: 1px solid #ccc;
     float: right;
-    line-height: 20px;
 }

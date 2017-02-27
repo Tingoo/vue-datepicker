@@ -74,6 +74,7 @@
         methods: {
             click: function (item) {
                 var disDay = this.disabledDay;
+                /*.some函数，只要数组中有一个满足则返回true*/
                 var disabled = disDay.some(function(el,index,array){return el == item.weekDay});
                 if (!disabled){
                     eventHub.$emit('click', item)
@@ -84,14 +85,7 @@
                 var disabled = disDay.some(function(el,index,array){return el == item.weekDay});
                 return {'dt-disabled':disabled};
             }
-        }/*,
-        computed: {
-            disabledDayStyle: function (){
-                var disDay = this.disabledDay;
-                var disabled = disDay.some(function(el,index,array){return el == item.weekDay});
-                return {'dt-disabled':disabled};
-            }
-        }*/
+        }
     });
     /*展示十个年份*/
     var showYear = Vue.extend({
@@ -294,8 +288,8 @@
             '</tbody>' +
             '</table>' +
             '<div class="dt-footer"><a @click="clickNow">{{sel}}</a><span @click="show=false" class="dt-bt">确认</span></div></div>' +
-            '<div class = "dt-note" v-show = "showNote"><input id = "dt-noteInput"  type="text">{{sel}}' +
-            '<button @click="clickNoteConsole">取消</button><button @click="clickNoteSave">保存</button></div>' +
+            '<div class = "dt-note" v-show = "showNote">{{sel}}<textarea id = "dt-noteInput"  type="text"></textarea>' +
+            '<div class="btn-note"><button @click="clickNoteConsole" class="dt-bt">取消</button><button @click="clickNoteSave" class="dt-bt">保存</button></div></div>' +
             '</div>',
         created: function () {
             eventHub.$on('click', this.click);
@@ -365,16 +359,6 @@
                 } else {
                         el.value = ''
                 }
-                /*var el = document.getElementById("dt-noteInput");
-                if(item.note){
-                    el.value = item.note;
-                } else {
-                    if(el.value){
-                        item = Object.assign({},item,{'note':el.value});
-                       *//* item.note = el.value;*//*
-                        el.value = ''
-                    }
-                }*/
             },
             /*日期输入提示*/
             getNote: function (sel) {
@@ -462,18 +446,15 @@
                 var index = this.sel;
                 var el = document.getElementById("dt-noteInput");
                 this.showNote = false;
-                 if(this.noteInput[index]){
-                     el.value = this.noteInput[index];
-                 } else {
-                     if(el.value){
-                         this.noteInput = Object.assign({},this.noteInput,{index:el.value});
-                         this.noteInput[index] = el.value;
-                         el.value = ''
-                     }
+                 if(el.value){
+                     /*为什么用Object.assign*/
+                     this.noteInput = Object.assign({},this.noteInput,{index:el.value});
+                     this.noteInput[index] = el.value;
                  }
             },
             /*note数据取消*/
             clickNoteConsole: function () {
+                this.showNote = false;
                 var el = document.getElementById("dt-noteInput");
                 el.value = ''
             }
