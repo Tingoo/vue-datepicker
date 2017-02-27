@@ -188,8 +188,9 @@ body {
     height: 4px;
     border-radius: 2px;
     background-color: #2db7f5;
-    position: absolute;
-    margin: 17px 0 0 14px;
+    /*position: absolute;
+    margin: 17px 0 0 14px;*/
+    margin-bottom: -4px;
     display: block;
 }
 
@@ -203,11 +204,11 @@ body {
 }
 
 .dt-last {
-    color: #666;
+    color: #999;
 }
 
 .dt-table .dt-disabled{
-    color: #aaa;
+    color: #E87600;
     cursor: default;
 }
 

@@ -70,7 +70,7 @@
             }
         },
         template: '<tr><td v-for="item in items" :class="{\'dt-last\':month!=item.month,\'dt-today\':cur==item.data,\'dt-select\':sel==item.data}">' +
-            '<span v-show="showCircle(item.data)" class="dt-circle"></span><span @click="click(item)" :class="disabledDayStyle(item)">{{item.day}}</span></td></tr>',
+            '<span @click="click(item)" :class="disabledDayStyle(item)">{{item.day}}</span><span v-show="showCircle(item.data)" class="dt-circle"></span></td></tr>',
         methods: {
             click: function (item) {
                 var disDay = this.disabledDay;
@@ -292,7 +292,7 @@
             '</tbody>' +
             '</table>' +
             '<div class="dt-footer"><a @click="clickNow">{{sel}}</a><span @click="show=false" class="dt-bt">确认</span></div></div>' +
-            '<div class = "dt-note" v-show = "showNote">{{sel}}<textarea id = "dt-noteInput"  type="text"></textarea>' +
+            '<div class = "dt-note" v-show = "showNote">{{sel}} 待办事项<textarea id = "dt-noteInput"  type="text"></textarea>' +
             '<div class="btn-note"><button @click="clickNoteConsole" class="dt-bt">取消</button><button @click="clickNoteSave" class="dt-bt">保存</button></div></div>' +
             '</div>',
         created: function () {
