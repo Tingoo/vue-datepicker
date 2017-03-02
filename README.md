@@ -11,3 +11,5 @@ A datepicker demo  with Vue2.x
     1. 修改note存储不刷新bug
     2. 添加浏览器缓存
     3. 添加事件标志
++ 2017-03-02
+    1. 实践css过渡效果

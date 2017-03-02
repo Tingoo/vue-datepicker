@@ -277,23 +277,23 @@
             '<input type="text"  class="dt-input" @focus="foc" v-model="sel" :placeholder="config.placeholder">' +
             '<span class="dt-attention">{{note}}</span>' +
             '</div>' +
-            '<div v-show = "show">' +
+            '<transition name="showHide"><div v-show = "show">' +
             '<div class="dt-head">' +
             '<div class="dt-lastDate"><a @click="cy(-1)">«</a><a @click="cm(-1)">‹</a></div>' +
             '<span class="dt-nowDate"><span @click="showYear=!showYear,showMonth=false">{{y}} 年</span><span @click="showMonth=!showMonth,showYear=false"> {{m}} 月</span></span>' +
             '<div class="dt-nextDate"><a @click="cm(1)">›</a><a @click="cy(1)">»</a></div>' +
             '<span class="dt-conversion" @click="refreshMonthWeek">{{showLang}}</span>' +
             '</div>' +
-            '<div v-show = "showYear" class="dt-yearPanel"><p is="show-year" :nowYear="y"></p></div>' +
-            '<div v-show = "showMonth" class="dt-monthPanel"><p is="show-month" :lang="lang"></p></div>' +
+            '<transition name="showHide"><div v-show = "showYear" class="dt-yearPanel"><p is="show-year" :nowYear="y"></p></div></transition>' +
+            '<transition name="showHide"><div v-show = "showMonth" class="dt-monthPanel"><p is="show-month" :lang="lang"></p></div></transition>' +
             '<table class="dt-table">' +
             '<thead><div is="day-title" :lang="lang"></div></thead>' +
             '<tbody><tr is="calendar-line" v-for="cell in data" :items="cell" :month="m" :sel="sel" :cur="cur" :disabledDay="config.disabledDay"></tr>' +
             '</tbody>' +
             '</table>' +
-            '<div class="dt-footer"><a @click="clickNow">{{sel}}</a><span @click="show=false" class="dt-bt">确认</span></div></div>' +
-            '<div class = "dt-note" v-show = "showNote">{{sel}} 待办事项<textarea id = "dt-noteInput"  type="text"></textarea>' +
-            '<div class="btn-note"><button @click="clickNoteConsole" class="dt-bt">取消</button><button @click="clickNoteSave" class="dt-bt">保存</button></div></div>' +
+            '<div class="dt-footer"><a @click="clickNow">{{sel}}</a><span @click="show=false" class="dt-bt">确认</span></div></div></transition>' +
+            '<transition name="showHide"><div class = "dt-note" v-show = "showNote">{{sel}} 待办事项<textarea id = "dt-noteInput"  type="text"></textarea>' +
+            '<div class="btn-note"><button @click="clickNoteConsole" class="dt-bt">取消</button><button @click="clickNoteSave" class="dt-bt">保存</button></div></div></transition>' +
             '</div>',
         created: function () {
             eventHub.$on('click', this.click);
@@ -456,7 +456,7 @@
                 var el = document.getElementById("dt-noteInput");
                 this.showNote = false;
                  if(el.value){
-                     /*为什么用Object.assign*/
+                     /*为什么用Object.assign:向已有对象上添加新的属性，添加到对象上的新属性不会触发更新，故创建一个新对象包含原对象的属性和新加的属性*/
                      this.noteInput = Object.assign({},this.noteInput,{index:el.value});
                      this.noteInput[index] = el.value;
                      this.setToLocalStorage(index,el.value);

@@ -18,17 +18,29 @@ body {
     position: relative;
 }
 
+/*css过渡效果*/
+.showHide-enter-active {
+    transition: all .5s ease;
+}
+.showHide-leave-active {
+    transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.showHide-enter, .showHide-leave-active {
+    transform: translateY(10px);
+    opacity: 0
+}
+
 .dt-nowDate span{
     cursor: pointer;
 }
 
 .dt-panel .dt-yearPanel{
-    margin-left: 32px;
+    margin-left: 30px;
     width: 180px;
 }
 
 .dt-panel .dt-monthPanel{
-    margin-left: 77px;
+    margin-left: 50px;
     width: 140px;
 }
 
